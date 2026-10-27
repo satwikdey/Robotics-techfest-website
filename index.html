@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TECHPULSE 2027 | Transformers Cybertron Robotics Tech Fest - Sonarpur</title>
+  <meta name="description" content="Official Delegate & Competition Enrollment Portal for TECHPULSE 2027, South 24 Parganas' premier robotics & tech festival. Featuring Robo War, MechStrikers, Auto-Path, Aqua-Blast, Drone Arenas & Instant Holographic Pass. Powered by 5 Point Education & Kranti Foundation.">
+  <meta name="keywords" content="TechPulse 2027, Robotics Tech Fest, Sonarpur, Kranti Foundation, 5 Point Education, Robo Race, Robo Soccer, Line Follower, Transformers Robotics">
+  
+  <!-- OpenGraph / Social Sharing -->
+  <meta property="og:title" content="TECHPULSE 2027 | Where Future Robotics & Next-Gen Innovators Collide">
+  <meta property="og:description" content="Register now for 7+ Arenas, 5 Battle Zones, ₹2,50,000+ Prize Pool and claim your official Holographic ID Pass.">
+  <meta property="og:image" content="assets/images/poster-main.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon (Cybertron Spark) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,5 90,25 90,75 50,95 10,75 10,25' fill='%2307090e' stroke='%2300f0ff' stroke-width='6'/><path d='M50,20 L65,45 L50,80 L35,45 Z' fill='%2300f0ff'/></svg>">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="css/cybertron.css">
+  
+  <!-- Embedded QR Code Generator -->
+  <script src="js/qrcode.js"></script>
+</head>
+<body class="theme-autobot">
+
+  <!-- Canvas for Starfield / Energon Matrix -->
+  <canvas id="cyberCanvas"></canvas>
+  <div class="scanline-overlay"></div>
+
+  <!-- ==========================================================================
+       ALLSPARK MATRIX LOADER
+       ========================================================================== -->
+  <div id="cyberLoader">
+    <div class="matrix-cube">
+      <div class="allspark-core">
+        <div class="cube-face front">AUTOBOT</div>
+        <div class="cube-face back">CYBERTRON</div>
+        <div class="cube-face right">ENERGON</div>
+        <div class="cube-face left">ROBOTICS</div>
+        <div class="cube-face top">TECHPULSE</div>
+        <div class="cube-face bottom">2027</div>
+      </div>
+    </div>
+    <div class="loader-status">
+      <span class="pulse-dot"></span> INITIALIZING CYBERTRON MATRIX...
+    </div>
+    <div class="loader-progress-bar">
+      <div class="loader-progress-fill" style="width: 100%;"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION BAR
+       ========================================================================== -->
+  <header class="cyber-nav">
+    <div class="container nav-inner">
+      <!-- Brand Logo -->
+      <a href="#hero" class="brand-wrapper">
+        <div class="transformer-emblem" id="brandEmblem">
+          <svg viewBox="0 0 100 100" width="28" height="28" fill="var(--primary)">
+            <!-- Stylized Autobot Mask -->
+            <polygon points="50,8 18,28 18,62 32,88 50,94 68,88 82,62 82,28" fill="none" stroke="currentColor" stroke-width="6"/>
+            <polygon points="50,22 32,36 32,58 42,76 50,78 58,76 68,58 68,36" fill="currentColor"/>
+            <circle cx="42" cy="48" r="4" fill="#07090e"/>
+            <circle cx="58" cy="48" r="4" fill="#07090e"/>
+          </svg>
+        </div>
+        <div class="brand-titles">
+          <h1>TECHPULSE <span>2027</span></h1>
+          <div class="brand-sub">5 POINT EDUCATION • KRANTI FOUNDATION</div>
+        </div>
+      </a>
+
+      <!-- Telemetry: Active Pulse & Countdown -->
+      <div class="nav-telemetry">
+        <div class="pulse-badge">
+          <span class="pulse-dot"></span> REGISTRATIONS ACTIVE
+        </div>
+        <div class="nav-countdown" id="festCountdown" title="Countdown to Event Launch">
+          --d : --h : --m : --s
+        </div>
+      </div>
+
+      <!-- Actions: Faction, Sound, Sheet Sync, Registration -->
+      <div class="nav-actions">
+        <!-- Audio Synthesizer Toggle -->
+        <button class="nav-btn sound-toggle-btn" id="soundToggleBtn" title="Toggle Transformers Audio FX">
+          <div class="sound-bars">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <span>FX</span>
+        </button>
+
+        <!-- Faction Toggle Button (Autobot vs Decepticon) -->
+        <button class="nav-btn" id="factionToggleBtn" title="Switch Faction Protocol">
+          <span class="pulse-dot"></span> AUTOBOT ALLIANCE
+        </button>
+
+        <!-- Registry & Google Sheets Modal Opener -->
+        <button class="nav-btn" id="navSheetSyncBtn" title="Open Apps Script & Excel Database">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span id="navRegistryCount">REGISTRY (0)</span>
+        </button>
+
+        <!-- Jump to Pass / Enlist -->
+        <a href="#registrationSection" class="nav-btn nav-btn-highlight">
+          ENROLL NOW ➜
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION (Matches layout from Image 1 & 2!)
+       ========================================================================== -->
+  <section class="hero-section" id="hero">
+    <div class="container hero-content">
+      <div class="hero-banner-tag">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        OCTOBER 17 – 18, 2027 • GRAND TECH ARENA & CONVENTION • SONARPUR
+      </div>
+
+      <h2 class="hero-title">
+        Where Future <span class="highlight-red">Robotics</span><br>
+        & Next-Gen <span class="highlight-blue">Innovators</span><br>
+        Collide
+      </h2>
+
+      <p class="hero-desc">
+        Official Delegate & Competition Enrollment Portal for School and College Pioneers. Register now to claim your battle slots across 7+ high-octane arenas and generate your official encrypted Holographic ID Pass with instant QR verification.
+      </p>
+
+      <!-- 4 Stat Cores Grid (From Image 1 & 2 Wireframe) -->
+      <div class="hero-stats-grid">
+        <div class="stat-core-card">
+          <div class="stat-icon-wrapper">
+            🤖
+          </div>
+          <div class="stat-core-info">
+            <h3>7+ ARENAS</h3>
+            <p>Robo War, Race, Soccer & More</p>
+          </div>
+        </div>
+
+        <div class="stat-core-card">
+          <div class="stat-icon-wrapper stat-icon-amber">
+            🥽
+          </div>
+          <div class="stat-core-info">
+            <h3>5 ZONES</h3>
+            <p>Drone, VR, 3D Print & Flash</p>
+          </div>
+        </div>
+
+        <div class="stat-core-card">
+          <div class="stat-icon-wrapper stat-icon-crimson">
+            🏆
+          </div>
+          <div class="stat-core-info">
+            <h3>₹2,50,000+</h3>
+            <p>Cash Awards, Honors & Trophies</p>
+          </div>
+        </div>
+
+        <div class="stat-core-card">
+          <div class="stat-icon-wrapper">
+            🛡️
+          </div>
+          <div class="stat-core-info">
+            <h3>INSTANT PASS</h3>
+            <p>Scannable ID with QR Code</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Actions -->
+      <div class="hero-cta-group">
+        <a href="#registrationSection" class="btn-cyber-primary">
+          INITIATE ENLISTMENT [TRANSFORM & ROLL OUT] ➜
+        </a>
+        <a href="#surveillanceSection" class="btn-cyber-ghost">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          SURVEILLANCE INTEL & REEL
+        </a>
+        <button class="btn-cyber-ghost" id="heroSheetSyncBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          EXCEL & APPSCRIPT CONSOLE
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CYBERTRON VIDEO SURVEILLANCE & ARENA REEL
+       (Utilizing the actual video assets from the workspace!)
+       ========================================================================== -->
+  <section class="container" id="surveillanceSection" style="padding-top: 2rem;">
+    <div class="section-heading-wrapper">
+      <span class="section-tag">CYBERTRON SURVEILLANCE SENSORS</span>
+      <h2 class="section-title">LIVE BATTLE ARENA REEL</h2>
+      <p class="section-subtitle">Real satellite telemetry and on-ground recordings from the tactical arenas, pavilions, and exhibition stages.</p>
+    </div>
+
+    <div class="surveillance-theater">
+      <!-- HUD Bar & Tab Selectors -->
+      <div class="surveillance-hud-bar">
+        <div class="surveillance-tabs">
+          <button class="surveillance-tab active" data-index="0">
+            <span class="pulse-dot"></span> 01 AERIAL DRONE ARENA
+          </button>
+          <button class="surveillance-tab" data-index="1">
+            02 DELEGATE INFLUX
+          </button>
+          <button class="surveillance-tab" data-index="2">
+            03 TECH PAVILIONS
+          </button>
+          <button class="surveillance-tab" data-index="3">
+            04 AUTONOMOUS BOTS
+          </button>
+        </div>
+        <div id="hudVideoTag" class="font-tech" style="color: var(--primary);">
+          FEED 01 • OUTDOOR ARENA
+        </div>
+      </div>
+
+      <!-- Video Player with Sci-Fi HUD Overlay -->
+      <div class="surveillance-screen">
+        <video id="surveillancePlayer" src="assets/videos/arena-drone-aerial.mp4" autoplay loop muted playsinline controls></video>
+        
+        <div class="video-hud-overlay">
+          <div class="hud-top-data">
+            <span class="hud-rec">REC [LIVE BROADCAST]</span>
+            <span>FREQ: 5.8 GHz • ENCRYPTED</span>
+            <span>SECTOR: SOUTH 24 PARGANAS</span>
+          </div>
+          
+          <div class="hud-bottom-info">
+            <div>
+              <div class="hud-intel-title" id="hudVideoTitle">TACTICAL DRONE & COMBAT ARENA</div>
+              <div class="hud-intel-sub" id="hudVideoSub">Aerial telemetry of the Grand Arena & high-altitude obstacle grid.</div>
+            </div>
+            <div class="font-tech" style="font-size: 0.75rem; color: var(--secondary); background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px;">
+              STATUS: NOMINAL
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       BATTLE ARENAS & COMPETITIONS (From the Official Fest Poster!)
+       ========================================================================== -->
+  <section class="container" id="arenasSection">
+    <div class="section-heading-wrapper">
+      <span class="section-tag">COMPETITIVE COMBAT MATRIX</span>
+      <h2 class="section-title">THE 7+ BATTLE ARENAS</h2>
+      <p class="section-subtitle">Choose your arena, engineer your machines, and compete against the most formidable technocrats in South 24 Parganas.</p>
+    </div>
+
+    <div class="arenas-grid">
+      <!-- 01 FAST-TRACK: ROBO RACE -->
+      <div class="arena-card">
+        <div class="arena-card-header">
+          <img src="assets/images/poster-events.jpg" alt="Fast-Track Robo Race" style="object-position: 5% 75%;">
+          <div class="arena-badge-number">ARENA 01</div>
+          <div class="arena-category-pill">ROBO RACE</div>
+        </div>
+        <div class="arena-card-body">
+          <h3 class="arena-title">FAST-TRACK</h3>
+          <div class="arena-subtitle">HIGH SPEED OBSTACLE & DRAG CIRCUIT</div>
+          <p class="arena-desc">Custom chassis racing across treacherous ramps, bridge chicanes, sand traps, and hairpin curves. Pure torque meets reflex.</p>
+          <div class="arena-telemetry-specs">
+            <div class="telemetry-spec">
+              <span>TEAM CAPACITY</span>
+              <strong>1 – 4 Cadets</strong>
+            </div>
+            <div class="telemetry-spec">
+              <span>PRIZE BOUNTY</span>
+              <strong style="color: var(--secondary)">₹30,000 + Trophy</strong>
+            </div>
+          </div>
+          <button class="arena-action-btn arena-quick-enlist-btn" data-event="Fast-Track (Robo Race)">
+            QUICK ENLIST IN ARENA ➜
+          </button>
+        </div>
+      </div>
+
+      <!-- 02 MECHSTRIKERS: ROBO SOCCER -->
+      <div class="arena-card">
+        <div class="arena-card-header">
+          <img src="assets/images/poster-events.jpg" alt="MechStrikers Robo Soccer" style="object-position: 25% 75%;">
+          <div class="arena-badge-number">ARENA 02</div>
+          <div class="arena-category-pill">ROBO SOCCER</div>
+        </div>
+        <div class="arena-card-body">
+          <h3 class="arena-title">MECHSTRIKERS</h3>
+          <div class="arena-subtitle">TACTICAL ROBOT FOOTBALL TOURNAMENT</div>
+          <p class="arena-desc">High-power bots competing in a 3v3 electrified arena with pneumatic kickers, dribblers, and intense offensive tactics.</p>
+          <div class="arena-telemetry-specs">
+            <div class="telemetry-spec">
+              <span>TEAM CAPACITY</span>
+              <strong>2 – 5 Cadets</strong>
+            </div>
+            <div class="telemetry-spec">
+              <span>PRIZE BOUNTY</span>
+              <strong style="color: var(--secondary)">₹35,000 + Cup</strong>
+            </div>
+          </div>
+          <button class="arena-action-btn arena-quick-enlist-btn" data-event="MechStrikers (Robo Soccer)">
+            QUICK ENLIST IN ARENA ➜
+          </button>
+        </div>
+      </div>
+
+      <!-- 03 ROBO SUMO: COMBAT -->
+      <div class="arena-card">
+        <div class="arena-card-header">
+          <img src="assets/images/poster-events.jpg" alt="Robo Sumo Combat" style="object-position: 50% 75%;">
+          <div class="arena-badge-number">ARENA 03</div>
+          <div class="arena-category-pill">ROBOT COMBAT</div>
+        </div>
+        <div class="arena-card-body">
+          <h3 class="arena-title">ROBO SUMO</h3>
+          <div class="arena-subtitle">STEEL RING COMBAT & HEAVYWEIGHT EJECTION</div>
+          <p class="arena-desc">Push or be pushed. Autonomous and RC mechs lock horns in the circular steel dohyo to force rivals beyond the perimeter ring.</p>
+          <div class="arena-telemetry-specs">
+            <div class="telemetry-spec">
+              <span>TEAM CAPACITY</span>
+              <strong>1 – 4 Cadets</strong>
+            </div>
+            <div class="telemetry-spec">
+              <span>PRIZE BOUNTY</span>
+              <strong style="color: var(--secondary)">₹40,000 + Honors</strong>
+            </div>
+          </div>
+          <button class="arena-action-btn arena-quick-enlist-btn" data-event="Robo Sumo (Combat)">
+            QUICK ENLIST IN ARENA ➜
+          </button>
+        </div>
+      </div>
+
+      <!-- 04 AUTO-PATH: LINE FOLLOWER -->
+      <div class="arena-card">
+        <div class="arena-card-header">
+          <img src="assets/images/poster-events.jpg" alt="Auto-Path Line Follower" style="object-position: 75% 75%;">
+          <div class="arena-badge-number">ARENA 04</div>
+          <div class="arena-category-pill">AUTOMATION</div>
+        </div>
+        <div class="arena-card-body">
+          <h3 class="arena-title">AUTO-PATH</h3>
+          <div class="arena-subtitle">AUTONOMOUS LINE FOLLOWER (PID CONTROL)</div>
+          <p class="arena-desc">Microcontroller-driven optical sensory bots navigating sharp 90-degree junctions, broken lines, inverted tracks, and loops.</p>
+          <div class="arena-telemetry-specs">
+            <div class="telemetry-spec">
+              <span>TEAM CAPACITY</span>
+              <strong>1 – 3 Cadets</strong>
+            </div>
+            <div class="telemetry-spec">
+              <span>PRIZE BOUNTY</span>
+              <strong style="color: var(--secondary)">₹25,000 + Medals</strong>
+            </div>
+          </div>
+          <button class="arena-action-btn arena-quick-enlist-btn" data-event="Auto-Path (Line Follower)">
+            QUICK ENLIST IN ARENA ➜
+          </button>
+        </div>
+      </div>
+
+      <!-- 05 AQUA-BLAST: WATER ROCKET -->
+      <div class="arena-card">
+        <div class="arena-card-header">
+          <img src="assets/images/poster-events.jpg" alt="Aqua-Blast Water Rocket" style="object-position: 95% 75%;">
+          <div class="arena-badge-number">ARENA 05</div>
+          <div class="arena-category-pill">ROCKETRY</div>
+        </div>
+        <div class="arena-card-body">
+          <h3 class="arena-title">AQUA-BLAST</h3>
+          <div class="arena-subtitle">AERODYNAMIC PRESSURIZED WATER ROCKET</div>
+          <p class="arena-desc">Harness fluid dynamics and pneumatic thrust. Build aerodynamic rockets scored on altitude, flight duration, and parachute landing.</p>
+          <div class="arena-telemetry-specs">
+            <div class="telemetry-spec">
+              <span>TEAM CAPACITY</span>
+              <strong>1 – 3 Cadets</strong>
+            </div>
+            <div class="telemetry-spec">
+              <span>PRIZE BOUNTY</span>
+              <strong style="color: var(--secondary)">₹20,000 + Launch Shield</strong>
+            </div>
+          </div>
+          <button class="arena-action-btn arena-quick-enlist-btn" data-event="Aqua-Blast (Water Rocket)">
+            QUICK ENLIST IN ARENA ➜
+          </button>
+        </div>
+      </div>
+
+      <!-- 06 AERO-STRIKE: DRONE RACE -->
+      <div class="arena-card">
+        <div class="arena-card-header">
+          <img src="assets/images/poster-main.jpg" alt="Aero-Strike Tactical Drone" style="object-position: 50% 10%;">
+          <div class="arena-badge-number">ARENA 06</div>
+          <div class="arena-category-pill">TACTICAL DRONE</div>
+        </div>
+        <div class="arena-card-body">
+          <h3 class="arena-title">AERO-STRIKE</h3>
+          <div class="arena-subtitle">FPV DRONE FLIGHT & OBSTACLE COMBAT</div>
+          <p class="arena-desc">High-speed quadcopter maneuvering through illuminated air gates, vertical tunnels, and precision landing pads.</p>
+          <div class="arena-telemetry-specs">
+            <div class="telemetry-spec">
+              <span>TEAM CAPACITY</span>
+              <strong>1 – 3 Cadets</strong>
+            </div>
+            <div class="telemetry-spec">
+              <span>PRIZE BOUNTY</span>
+              <strong style="color: var(--secondary)">₹35,000 + Aerial Cup</strong>
+            </div>
+          </div>
+          <button class="arena-action-btn arena-quick-enlist-btn" data-event="Aero-Strike (Drone Arena)">
+            QUICK ENLIST IN ARENA ➜
+          </button>
+        </div>
+      </div>
+
+      <!-- 07 CYBER-INNOVATE: PROJECT EXPO -->
+      <div class="arena-card">
+        <div class="arena-card-header">
+          <img src="assets/images/cybertron_hero_mech.jpg" alt="Cyber-Innovate Hardware Expo" style="object-position: 50% 30%;">
+          <div class="arena-badge-number">ARENA 07</div>
+          <div class="arena-category-pill">HARDWARE EXPO</div>
+        </div>
+        <div class="arena-card-body">
+          <h3 class="arena-title">CYBER-INNOVATE</h3>
+          <div class="arena-subtitle">AI & NEXT-GEN ROBOTICS PROTOTYPE EXPO</div>
+          <p class="arena-desc">Showcase your working engineering prototypes, IoT solutions, humanoid mechatronics, and assistive technologies to industry jurors.</p>
+          <div class="arena-telemetry-specs">
+            <div class="telemetry-spec">
+              <span>TEAM CAPACITY</span>
+              <strong>1 – 5 Cadets</strong>
+            </div>
+            <div class="telemetry-spec">
+              <span>PRIZE BOUNTY</span>
+              <strong style="color: var(--secondary)">₹55,000 + Incubation</strong>
+            </div>
+          </div>
+          <button class="arena-action-btn arena-quick-enlist-btn" data-event="Cyber-Innovate (Hardware Expo)">
+            QUICK ENLIST IN ARENA ➜
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       5 TECH ZONES SHOWCASE
+       ========================================================================== -->
+  <section class="container">
+    <div class="section-heading-wrapper">
+      <span class="section-tag">CYBERTRON FACILITY ACCESS</span>
+      <h2 class="section-title">THE 5 TECH BATTLE ZONES</h2>
+      <p class="section-subtitle">Full delegate access included with every registered holographic ID pass.</p>
+    </div>
+
+    <div class="zones-grid">
+      <div class="zone-chip">
+        <div class="zone-chip-icon">🛸</div>
+        <h4 class="zone-chip-title">DRONE FLIGHT CAGE</h4>
+        <p class="zone-chip-sub">High-altitude mesh test arena & simulators</p>
+      </div>
+
+      <div class="zone-chip">
+        <div class="zone-chip-icon">🥽</div>
+        <h4 class="zone-chip-title">VR HOLODECK</h4>
+        <p class="zone-chip-sub">Immersive mecha battle simulation & spatial AI</p>
+      </div>
+
+      <div class="zone-chip">
+        <div class="zone-chip-icon">🖨️</div>
+        <h4 class="zone-chip-title">3D FAB CORE</h4>
+        <p class="zone-chip-sub">Rapid prototyping, filament printing & PCB milling</p>
+      </div>
+
+      <div class="zone-chip">
+        <div class="zone-chip-icon">⚡</div>
+        <h4 class="zone-chip-title">FLASH HACK MATRIX</h4>
+        <p class="zone-chip-sub">Real-time robotics firmware & telemetry coding</p>
+      </div>
+
+      <div class="zone-chip">
+        <div class="zone-chip-icon">🛡️</div>
+        <h4 class="zone-chip-title">COMBAT OCTAGON</h4>
+        <p class="zone-chip-sub">Reinforced bulletproof poly-carbonate clash cage</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       REGISTRATION & DELEGATE ENROLLMENT PORTAL
+       (Split 2-Column layout matching Image 1 & 2 wireframes!)
+       ========================================================================== -->
+  <section class="portal-section" id="registrationSection">
+    <div class="container">
+      
+      <!-- Profile Selection Header Bar (School vs College) -->
+      <div class="profile-selection-header">
+        <div class="profile-selection-label">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--primary)">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          SELECT REGISTRATION PROFILE:
+        </div>
+
+        <div class="profile-toggle-group">
+          <button class="profile-tab-btn active" id="btnProfileSchool">
+            <span>🏫 School Student</span>
+            <small>(Grade V – XII)</small>
+          </button>
+          <button class="profile-tab-btn" id="btnProfileCollege">
+            <span>🎓 College / University</span>
+            <small>(B.Tech, BCA, Diploma, PG)</small>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Layout: Form Box (Left) + Holographic Pass (Right) -->
+      <div class="portal-layout-grid">
+        
+        <!-- ==============================================================
+             LEFT COLUMN: THE REGISTRATION FORM CONTAINER
+             ============================================================== -->
+        <div class="registration-box" id="registrationBox">
+          
+          <div class="reg-box-header">
+            <span class="reg-badge-tag" id="regBadgeTag">
+              SCHOOL STUDENT REGISTRATION
+            </span>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <a href="#holographicCard" class="mobile-preview-pass-btn">🎫 View Pass</a>
+              <div class="progress-radial-pill" id="formProgressPill">
+                20% COMPLETE
+              </div>
+            </div>
+          </div>
+
+          <h2 class="reg-main-title">Registration & Delegate Enrollment</h2>
+          <p class="reg-sub-title">Fill in certified credentials to authorize gate entry and reserve arena competition slots.</p>
+
+          <!-- Stepper Wizard Navigation Bar (From Mock: 1 Student, 2 School, 3 Events...) -->
+          <div class="steps-stepper-bar">
+            <div class="step-chip active" id="stepChip1">
+              <span class="step-number">1</span> Student
+            </div>
+            <div class="step-chip" id="stepChip2">
+              <span class="step-number">2</span> Institution
+            </div>
+            <div class="step-chip" id="stepChip3">
+              <span class="step-number">3</span> Events
+            </div>
+            <div class="step-chip" id="stepChip4">
+              <span class="step-number">4</span> Zones & Logistics
+            </div>
+            <div class="step-chip" id="stepChip5">
+              <span class="step-number">5</span> Transmit
+            </div>
+          </div>
+
+          <!-- THE FORM -->
+          <form id="registrationForm" onsubmit="return false;">
+            
+            <!-- STEP 1: PERSONAL & IDENTITY PROFILE -->
+            <div class="form-step-container" id="formStep1">
+              <div class="section-banner-title">
+                <div class="section-icon-badge">👤</div>
+                <div>
+                  <h3>Section 1 — Personal & Identity Profile</h3>
+                  <p>Provide the attendee's name and choose a Cybertron avatar or upload personal portrait.</p>
+                </div>
+              </div>
+
+              <!-- Avatar / Badge Photo Picker (From Image 1 & 2) -->
+              <div class="badge-avatar-picker-row">
+                <div class="avatar-preview-halo">
+                  <img id="avatarFormPreview" src="assets/images/cybertron_avatar_optimus.jpg" alt="Avatar Preview">
+                </div>
+                <div class="avatar-selection-controls">
+                  <div class="avatar-selection-label">Badge Photo / Holographic Persona:</div>
+                  <div class="avatar-presets-grid">
+                    <button type="button" class="preset-avatar-btn selected" data-avatar="assets/images/cybertron_avatar_optimus.jpg" title="Optimus Prime">
+                      <img src="assets/images/cybertron_avatar_optimus.jpg" alt="Optimus">
+                    </button>
+                    <button type="button" class="preset-avatar-btn" data-avatar="assets/images/cybertron_avatar_bumblebee.jpg" title="Bumblebee">
+                      <img src="assets/images/cybertron_avatar_bumblebee.jpg" alt="Bumblebee">
+                    </button>
+                    <button type="button" class="preset-avatar-btn" data-avatar="assets/images/cybertron_avatar_megatron.jpg" title="Megatron">
+                      <img src="assets/images/cybertron_avatar_megatron.jpg" alt="Megatron">
+                    </button>
+                    <button type="button" class="preset-avatar-btn" data-avatar="assets/images/poster-main.jpg" title="Cyber Mecha">
+                      <img src="assets/images/poster-main.jpg" alt="Mecha">
+                    </button>
+                  </div>
+                  <div class="avatar-upload-buttons">
+                    <input type="file" id="avatarFileInput" accept="image/*" style="display:none;">
+                    <button type="button" class="btn-file-upload" id="btnUploadCustomPhoto">
+                      📁 Upload Custom Photo
+                    </button>
+                    <button type="button" class="btn-snap-webcam" id="btnSnapWebcamPhoto">
+                      📷 Snap Selfie
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Full Name Field -->
+              <div class="input-field-group">
+                <label class="input-label">Student Full Name <span class="required-star">*</span></label>
+                <div class="input-cyber-wrapper">
+                  <span class="input-cyber-icon">👤</span>
+                  <input type="text" id="regFullName" class="cyber-input" placeholder="e.g. Aryan Sharma / Priya Roy" required>
+                </div>
+              </div>
+
+              <!-- Profile Specific Fields: School Student -->
+              <div class="form-grid-2 profile-school-only">
+                <div class="input-field-group">
+                  <label class="input-label">Class / Grade <span class="required-star">*</span></label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">📚</span>
+                    <select id="regGrade" class="cyber-select">
+                      <option value="Grade V">Class / Grade V</option>
+                      <option value="Grade VI">Class / Grade VI</option>
+                      <option value="Grade VII">Class / Grade VII</option>
+                      <option value="Grade VIII">Class / Grade VIII</option>
+                      <option value="Grade IX">Class / Grade IX</option>
+                      <option value="Grade X">Class / Grade X</option>
+                      <option value="Grade XI" selected>Class / Grade XI</option>
+                      <option value="Grade XII">Class / Grade XII</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="input-field-group">
+                  <label class="input-label">Section / Stream</label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">🔬</span>
+                    <input type="text" id="regSection" class="cyber-input" placeholder="e.g. Sec A / Science / CS">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Profile Specific Fields: College Student -->
+              <div class="form-grid-2 profile-college-only" style="display:none;">
+                <div class="input-field-group">
+                  <label class="input-label">Department / Degree <span class="required-star">*</span></label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">⚙️</span>
+                    <input type="text" id="regDepartment" class="cyber-input" placeholder="e.g. CSE / Robotics / ECE / BCA / Mechanical">
+                  </div>
+                </div>
+
+                <div class="input-field-group">
+                  <label class="input-label">Year / Semester <span class="required-star">*</span></label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">📅</span>
+                    <select id="regYearSem" class="cyber-select">
+                      <option value="1st Year (Sem 1/2)">1st Year (Sem 1/2)</option>
+                      <option value="2nd Year (Sem 3/4)" selected>2nd Year (Sem 3/4)</option>
+                      <option value="3rd Year (Sem 5/6)">3rd Year (Sem 5/6)</option>
+                      <option value="4th Year (Sem 7/8)">4th Year (Sem 7/8)</option>
+                      <option value="Post-Graduate / PG">Post-Graduate / PG</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- College Roll Number -->
+              <div class="input-field-group profile-college-only" style="display:none;">
+                <label class="input-label">Roll Number / Student ID <span class="required-star">*</span></label>
+                <div class="input-cyber-wrapper">
+                  <span class="input-cyber-icon">🆔</span>
+                  <input type="text" id="regRollNumber" class="cyber-input" placeholder="e.g. 2027-CSE-091">
+                </div>
+              </div>
+
+              <!-- Gender & Date of Birth -->
+              <div class="form-grid-2">
+                <div class="input-field-group">
+                  <label class="input-label">Gender</label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">⚧</span>
+                    <select id="regGender" class="cyber-select">
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other / Non-Binary">Other / Non-Binary</option>
+                      <option value="Prefer not to say">Prefer not to say</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="input-field-group">
+                  <label class="input-label">Date of Birth</label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">🎂</span>
+                    <input type="date" id="regDob" class="cyber-input">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mobile & Email -->
+              <div class="form-grid-2">
+                <div class="input-field-group">
+                  <label class="input-label">Student Mobile Number <span class="required-star">*</span></label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">📱</span>
+                    <input type="tel" id="regPhone" class="cyber-input" placeholder="10-digit mobile number" required>
+                  </div>
+                </div>
+
+                <div class="input-field-group">
+                  <label class="input-label">Student / Primary Email <span class="required-star">*</span></label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">✉️</span>
+                    <input type="email" id="regEmail" class="cyber-input" placeholder="name@example.com" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- School Parent/Guardian Information -->
+              <div class="form-grid-2 profile-school-only">
+                <div class="input-field-group">
+                  <label class="input-label">Parent / Guardian Name <span class="required-star">*</span></label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">👨‍👩‍👧</span>
+                    <input type="text" id="regGuardianName" class="cyber-input" placeholder="Guardian's full name">
+                  </div>
+                </div>
+
+                <div class="input-field-group">
+                  <label class="input-label">Parent / Guardian Mobile <span class="required-star">*</span></label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">📞</span>
+                    <input type="tel" id="regGuardianPhone" class="cyber-input" placeholder="Parent contact number">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 1 Nav -->
+              <div class="form-nav-footer">
+                <div></div>
+                <button type="button" class="btn-step-next" id="btnNextStep1">
+                  Continue to Educational Institution ➜
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 2: EDUCATIONAL INSTITUTION -->
+            <div class="form-step-container" id="formStep2" style="display:none;">
+              <div class="section-banner-title">
+                <div class="section-icon-badge">🏛️</div>
+                <div>
+                  <h3>Section 2 — Academic Affiliation</h3>
+                  <p>Specify the educational institute representing your delegation.</p>
+                </div>
+              </div>
+
+              <div class="input-field-group profile-school-only">
+                <label class="input-label">School Name <span class="required-star">*</span></label>
+                <div class="input-cyber-wrapper">
+                  <span class="input-cyber-icon">🏫</span>
+                  <input type="text" id="regSchoolName" class="cyber-input" placeholder="e.g. Sonarpur High School / BDM International / DPS">
+                </div>
+              </div>
+
+              <div class="input-field-group profile-college-only" style="display:none;">
+                <label class="input-label">College / University Name <span class="required-star">*</span></label>
+                <div class="input-cyber-wrapper">
+                  <span class="input-cyber-icon">🎓</span>
+                  <input type="text" id="regCollegeName" class="cyber-input" placeholder="e.g. Future Institute of Engineering and Management (FIEM)">
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="input-field-group">
+                  <label class="input-label">City / Region <span class="required-star">*</span></label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">📍</span>
+                    <input type="text" id="regCity" class="cyber-input" value="Sonarpur, Kolkata" required>
+                  </div>
+                </div>
+
+                <div class="input-field-group">
+                  <label class="input-label">Faculty / Teacher-in-Charge (Optional)</label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">👔</span>
+                    <input type="text" id="regTeacherContact" class="cyber-input" placeholder="Coordinator name or phone">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-nav-footer">
+                <button type="button" class="btn-step-prev" id="btnPrevStep2">
+                  ← Back to Profile
+                </button>
+                <button type="button" class="btn-step-next" id="btnNextStep2">
+                  Proceed to Arena Selection ➜
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 3: ARENA & COMPETITION SELECTION -->
+            <div class="form-step-container" id="formStep3" style="display:none;">
+              <div class="section-banner-title">
+                <div class="section-icon-badge">⚔️</div>
+                <div>
+                  <h3>Section 3 — Battle Arena Enlistment</h3>
+                  <p>Select the robotics and innovation arenas you wish to compete in.</p>
+                </div>
+              </div>
+
+              <div class="event-checkbox-grid">
+                <label class="event-check-card">
+                  <input type="checkbox" name="enlistedEvents" value="Fast-Track (Robo Race)">
+                  <div class="event-check-label">
+                    <h4>01 FAST-TRACK</h4>
+                    <p>Robo Race • Drag & Obstacle</p>
+                  </div>
+                </label>
+
+                <label class="event-check-card">
+                  <input type="checkbox" name="enlistedEvents" value="MechStrikers (Robo Soccer)">
+                  <div class="event-check-label">
+                    <h4>02 MECHSTRIKERS</h4>
+                    <p>Robo Soccer • 3v3 Ball Clashes</p>
+                  </div>
+                </label>
+
+                <label class="event-check-card">
+                  <input type="checkbox" name="enlistedEvents" value="Robo Sumo (Combat)">
+                  <div class="event-check-label">
+                    <h4>03 ROBO SUMO</h4>
+                    <p>Robot Combat • Ring Sumo</p>
+                  </div>
+                </label>
+
+                <label class="event-check-card">
+                  <input type="checkbox" name="enlistedEvents" value="Auto-Path (Line Follower)">
+                  <div class="event-check-label">
+                    <h4>04 AUTO-PATH</h4>
+                    <p>Autonomous Line Follower</p>
+                  </div>
+                </label>
+
+                <label class="event-check-card">
+                  <input type="checkbox" name="enlistedEvents" value="Aqua-Blast (Water Rocket)">
+                  <div class="event-check-label">
+                    <h4>05 AQUA-BLAST</h4>
+                    <p>Water Rocketry Aerodynamics</p>
+                  </div>
+                </label>
+
+                <label class="event-check-card">
+                  <input type="checkbox" name="enlistedEvents" value="Aero-Strike (Drone Arena)">
+                  <div class="event-check-label">
+                    <h4>06 AERO-STRIKE</h4>
+                    <p>FPV Tactical Drone Agility</p>
+                  </div>
+                </label>
+
+                <label class="event-check-card">
+                  <input type="checkbox" name="enlistedEvents" value="Cyber-Innovate (Hardware Expo)">
+                  <div class="event-check-label">
+                    <h4>07 CYBER-INNOVATE</h4>
+                    <p>Hardware & Robotics Project Expo</p>
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-nav-footer">
+                <button type="button" class="btn-step-prev" id="btnPrevStep3">
+                  ← Back to Institution
+                </button>
+                <button type="button" class="btn-step-next" id="btnNextStep3">
+                  Configure Zones & Hospitality ➜
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 4: ZONES & HOSPITALITY -->
+            <div class="form-step-container" id="formStep4" style="display:none;">
+              <div class="section-banner-title">
+                <div class="section-icon-badge">🍽️</div>
+                <div>
+                  <h3>Section 4 — Zones, Hospitality & Emergency Contact</h3>
+                  <p>Choose facility access tokens and emergency comms link.</p>
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="input-field-group">
+                  <label class="input-label">Food & Lunch Pass Token</label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">🍔</span>
+                    <select id="regFoodPass" class="cyber-select">
+                      <option value="Yes (Full Delegate Meals & Snacks)">Yes (Full Delegate Meals & Snacks)</option>
+                      <option value="No (Entry Pass Only)">No (Entry Pass Only)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="input-field-group">
+                  <label class="input-label">Emergency Helpline Number <span class="required-star">*</span></label>
+                  <div class="input-cyber-wrapper">
+                    <span class="input-cyber-icon">🚨</span>
+                    <input type="tel" id="regEmergencyContact" class="cyber-input" placeholder="Emergency contact phone" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-nav-footer">
+                <button type="button" class="btn-step-prev" id="btnPrevStep4">
+                  ← Back to Arenas
+                </button>
+                <button type="button" class="btn-step-next" id="btnNextStep4">
+                  Review & Transmit Credentials ➜
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 5: REVIEW & TRANSMIT -->
+            <div class="form-step-container" id="formStep5" style="display:none;">
+              <div class="section-banner-title">
+                <div class="section-icon-badge">🚀</div>
+                <div>
+                  <h3>Section 5 — Review & Encrypted Transmission</h3>
+                  <p>Verify your details. Your pass on the right will be permanently authenticated.</p>
+                </div>
+              </div>
+
+              <div style="background: rgba(12,17,28,0.7); border:1px solid var(--border-cyber); border-radius:var(--radius-sm); padding:1.2rem; margin-bottom:1.5rem; font-family:var(--font-tech); font-size:0.85rem;">
+                <p style="color:var(--primary); margin-bottom:0.5rem; font-weight:700;">CYBERTRON VERIFICATION SUMMARY:</p>
+                <p>• Data will be written directly into the TechPulse Excel Database via Google Apps Script.</p>
+                <p>• Your high-resolution Holographic ID Pass will be immediately available for download or lanyard printing.</p>
+                <p>• Please carry your digital QR pass to the Sonarpur gate verification desk.</p>
+              </div>
+
+              <div class="form-nav-footer">
+                <button type="button" class="btn-step-prev" id="btnPrevStep5">
+                  ← Back to Logistics
+                </button>
+                <button type="button" class="btn-step-next" id="btnSubmitRegistration" style="background: linear-gradient(135deg, #00f0ff 0%, #ffb700 100%);">
+                  AUTHENTICATE & TRANSMIT DELEGATE ENROLLMENT ➜
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- ==============================================================
+             RIGHT COLUMN: LIVE HOLOGRAPHIC ID PASS
+             (Matches UI mock with 3D Flip, real QR code and dynamic data!)
+             ============================================================== -->
+        <div class="pass-preview-sidebar">
+          
+          <div class="pass-control-header">
+            <div class="pass-live-indicator">
+              <span class="pulse-dot"></span> HOLOGRAPHIC ID PASS
+            </div>
+            <button type="button" class="pass-flip-btn" id="passFlipBtn">
+              🔄 Flip Pass
+            </button>
+          </div>
+
+          <!-- 3D Card Container -->
+          <div class="holographic-pass-container">
+            <div class="holographic-card-3d" id="holographicCard">
+              
+              <!-- FRONT FACE OF PASS -->
+              <div class="pass-face pass-front">
+                <div class="pass-hud-header">
+                  <div class="pass-fest-logo">TECHPULSE <span>2027</span></div>
+                  <div class="pass-security-chip"></div>
+                </div>
+
+                <div class="pass-avatar-hero-wrap">
+                  <div class="pass-avatar-frame">
+                    <img id="passAvatarImg" src="assets/images/cybertron_avatar_optimus.jpg" alt="Delegate Portrait">
+                  </div>
+                  <div class="pass-delegate-name" id="passDelegateName">Cadet Delegate</div>
+                  <div class="pass-profile-tag" id="passProfileTag">SCHOOL PIONEER</div>
+                </div>
+
+                <div class="pass-details-table">
+                  <div class="pass-detail-row">
+                    <span class="pass-detail-label">INSTITUTE:</span>
+                    <span class="pass-detail-val" id="passInstVal">FIEM / Sonarpur Campus</span>
+                  </div>
+                  <div class="pass-detail-row">
+                    <span class="pass-detail-label">IDENTIFIER:</span>
+                    <span class="pass-detail-val" id="passRollVal">Grade XI (Sec A)</span>
+                  </div>
+                  <div class="pass-detail-row">
+                    <span class="pass-detail-label">CONTACT:</span>
+                    <span class="pass-detail-val" id="passContactVal">+91 98765 43210</span>
+                  </div>
+                  <div class="pass-detail-row">
+                    <span class="pass-detail-label">ARENAS:</span>
+                    <span class="pass-detail-val" id="passArenasVal" style="color:var(--primary);">Delegate Pass</span>
+                  </div>
+                </div>
+
+                <!-- Footer with Real QR Code & Pass ID -->
+                <div class="pass-footer-qr-row">
+                  <div class="pass-qr-box" id="passQrCode">
+                    <!-- Dynamic QR Canvas inserted here -->
+                  </div>
+                  <div class="pass-id-meta">
+                    <span>PASS ENCRYPTION KEY</span>
+                    <strong id="passIdDisplay">TP27-AUTOBOT-8832</strong>
+                    <span style="font-size:0.6rem; color:var(--text-dim); margin-top:2px;">5 POINT EDUCATION • KRANTI FOUNDATION</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- BACK FACE OF PASS (Access policies & Barcode) -->
+              <div class="pass-face pass-back">
+                <div>
+                  <div class="pass-back-title">TECHPULSE 2027 ACCESS POLICIES</div>
+                  <ul class="pass-back-terms">
+                    <li>This pass is non-transferable and must be displayed on lanyard at all times.</li>
+                    <li>Referee decision in all combat and racing arenas is final and binding.</li>
+                    <li>Food coupons are verified via QR code scan at the dining concourse.</li>
+                    <li>Emergency medical booth located at Zone B (Air-Conditioned Hall 2).</li>
+                    <li>Gate entry requires valid QR scan at the Sonarpur Convention turnstiles.</li>
+                  </ul>
+                </div>
+
+                <div class="pass-barcode-wrap">
+                  <div class="pass-barcode-lines">
+                    <span class="wide"></span><span></span><span class="gap"></span>
+                    <span></span><span class="wide"></span><span></span>
+                    <span class="gap"></span><span class="wide"></span><span></span>
+                    <span></span><span class="wide"></span><span class="gap"></span>
+                    <span></span><span></span><span class="wide"></span>
+                  </div>
+                  <div style="font-family:var(--font-tech); font-size:0.7rem; color:var(--text-muted); text-align:center;">
+                    SECURITY PROTOCOL: AUTOBOT MATRIX VERIFIED
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Pass Action Buttons (From Mock: Download HD Pass, Print Lanyard Pass) -->
+          <div class="pass-actions-group">
+            <button type="button" class="btn-pass-action primary" id="btnDownloadHdPass">
+              📥 Download HD Pass
+            </button>
+            <button type="button" class="btn-pass-action" id="btnPrintLanyardPass">
+              🖨️ Print Lanyard Pass
+            </button>
+            <button type="button" class="btn-pass-action" id="btnViewSummaryReceipt">
+              📜 View Registration Summary Receipt
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       GOOGLE APPS SCRIPT & EXCEL DATABASE CONSOLE MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" id="sheetSyncModal">
+    <div class="cyber-modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+            <line x1="9" y1="21" x2="9" y2="9"></line>
+          </svg>
+          Google Apps Script & Excel Sheet Sync Console
+        </h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+
+      <div class="modal-tab-row">
+        <button class="modal-tab-btn active" id="modalTabRegistry">Live Attendee Registry</button>
+        <button class="modal-tab-btn" id="modalTabSetup">Apps Script Setup Guide</button>
+      </div>
+
+      <!-- Tab 1: Live Registry & Excel Export -->
+      <div id="modalViewRegistry">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.8rem;">
+          <div style="font-family:var(--font-tech); font-size:0.85rem; color:var(--text-muted);">
+            All form submissions are secured locally in browser storage & synced to Google Sheets.
+          </div>
+          <button type="button" class="btn-cyber-primary" id="btnModalExportCsv" style="padding:0.6rem 1.2rem; font-size:0.8rem;">
+            📊 Download Excel / CSV Spreadsheet
+          </button>
+        </div>
+
+        <div class="registry-table-wrap">
+          <table class="registry-table">
+            <thead>
+              <tr>
+                <th>Delegate ID</th>
+                <th>Full Name</th>
+                <th>Profile</th>
+                <th>Institution</th>
+                <th>Arenas</th>
+                <th>Phone</th>
+              </tr>
+            </thead>
+            <tbody id="registryTableBody">
+              <!-- Rendered via app.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Google Apps Script URL configuration -->
+        <div style="margin-top:1.5rem; background:rgba(12,17,28,0.7); border:1px solid var(--border-cyber); border-radius:var(--radius-sm); padding:1rem;">
+          <label style="font-family:var(--font-tech); font-size:0.8rem; color:#fff; display:block; margin-bottom:0.4rem;">
+            Google Apps Script Web App Endpoint URL:
+          </label>
+          <div style="display:flex; gap:0.6rem;">
+            <input type="url" id="appScriptUrlInput" class="cyber-input" style="padding:0.6rem 0.8rem;" value="https://script.google.com/macros/s/AKfycbwho09oISTnmsj2ifg5QFvHSXD1ApycShe9AgQ0NVRsDRarOdVmKfUW4IIXB-BgAdFL/exec" placeholder="https://script.google.com/macros/s/AKfycb.../exec">
+            <button type="button" class="btn-step-next" id="btnSaveAppScriptUrl" style="padding:0.6rem 1.2rem; font-size:0.8rem;">
+              Save URL
+            </button>
+          </div>
+          <p style="font-size:0.75rem; color:var(--text-dim); margin-top:0.4rem;">
+            Leave blank to use local storage + Excel download mode, or paste your Web App URL to stream directly into Google Sheets.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tab 2: Apps Script Setup Instructions -->
+      <div id="modalViewSetup" style="display:none;">
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.8rem;">
+          Deploy this Google Apps Script inside your Google Sheet in less than 2 minutes:
+        </p>
+        
+        <ol style="font-size:0.82rem; color:var(--text-main); line-height:1.7; margin-left:1.5rem; margin-bottom:1.2rem;">
+          <li>Create a new Google Sheet at <a href="https://sheets.new" target="_blank" style="color:var(--primary);">sheets.new</a></li>
+          <li>In the menu, open <strong>Extensions &gt; Apps Script</strong></li>
+          <li>Replace any code with the script below, and click <strong>Deploy &gt; New deployment</strong></li>
+          <li>Select type: <strong>Web app</strong>, Execute as: <strong>Me</strong>, Who has access: <strong>Anyone</strong></li>
+          <li>Copy the generated Web App URL and paste it in the field above!</li>
+        </ol>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+          <span style="font-family:var(--font-tech); font-size:0.75rem; color:var(--primary);">CODE.GS SOURCE</span>
+          <button type="button" class="nav-btn" id="btnCopyAppScriptCode" style="font-size:0.72rem; padding:0.25rem 0.6rem;">
+            📋 Copy Code
+          </button>
+        </div>
+
+        <div class="code-snippet-box" id="appsScriptCodeBlock">function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["Timestamp", "Delegate ID", "Profile", "Full Name", "Email", "Phone", "Gender", "DOB", "Grade/Dept", "Section/Year", "Roll Number", "Guardian Name", "Guardian Phone", "Institution", "City", "Arenas", "Zones", "Food Pass", "Emergency Contact"]);
+    }
+    sheet.appendRow([data.timestamp, data.delegateId, data.profile, data.fullName, data.email, data.phone, data.gender, data.dob, data.department || data.grade, data.yearSem || data.section, data.rollNumber, data.guardianName, data.guardianPhone, data.institutionName, data.city, data.events, data.zones, data.foodPass, data.emergencyContact]);
+    return ContentService.createTextOutput(JSON.stringify({status:"success", delegateId: data.delegateId})).setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       WEBCAM SNAP MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" id="webcamModal">
+    <div class="cyber-modal-card" style="max-width: 480px; text-align:center;">
+      <h3 class="modal-title" style="justify-content:center; margin-bottom:1rem;">📷 Cybertron Optical Sensor (Webcam)</h3>
+      <div style="width:100%; aspect-ratio:1/1; background:#000; border-radius:var(--radius-sm); overflow:hidden; margin-bottom:1rem; border:1px solid var(--border-cyber);">
+        <video id="webcamVideo" autoplay playsinline style="width:100%; height:100%; object-fit:cover;"></video>
+      </div>
+      <div style="display:flex; justify-content:center; gap:0.8rem;">
+        <button type="button" class="btn-step-prev" id="btnCloseWebcam">Cancel</button>
+        <button type="button" class="btn-step-next" id="btnCaptureFrame">⚡ Capture Avatar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       REGISTRATION SUCCESS CONFIRMATION MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" id="successModal">
+    <div class="cyber-modal-card" style="max-width: 540px; text-align:center;">
+      <div style="font-size:3rem; margin-bottom:0.5rem;">🎉</div>
+      <h3 class="modal-title" style="justify-content:center; margin-bottom:0.5rem; color:var(--primary);">
+        ENROLLMENT AUTHENTICATED!
+      </h3>
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem;">
+        Welcome to the TechPulse 2027 Cybertron Matrix. Your holographic credentials have been registered.
+      </p>
+
+      <div id="successSummaryBox" style="background:rgba(12,17,28,0.8); border:1px solid var(--border-cyber); border-radius:var(--radius-sm); padding:1.2rem; text-align:left; margin-bottom:1.5rem;">
+        <!-- Inserted by app.js -->
+      </div>
+
+      <div style="display:flex; justify-content:center; gap:0.8rem; flex-wrap:wrap;">
+        <button type="button" class="btn-cyber-primary" onclick="document.getElementById('btnDownloadHdPass').click();">
+          📥 Download My Pass
+        </button>
+        <button type="button" class="btn-cyber-ghost modal-close-btn">
+          Return to Portal
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="cyber-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h2>TECHPULSE 2027</h2>
+          <p>
+            The biggest technology, AI and robotics festival in South 24 Parganas. Where school pioneers and engineering technocrats push the limits of autonomous combat, racing, and innovation.
+          </p>
+          <div style="margin-top:1.2rem; font-family:var(--font-tech); font-size:0.82rem; color:var(--primary);">
+            POWERED BY 5 POINT EDUCATION & KRANTI FOUNDATION
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>ARENA SHORTCUTS</h4>
+          <ul class="footer-links">
+            <li><a href="#arenasSection">Fast-Track (Robo Race)</a></li>
+            <li><a href="#arenasSection">MechStrikers (Robo Soccer)</a></li>
+            <li><a href="#arenasSection">Robo Sumo Combat</a></li>
+            <li><a href="#arenasSection">Auto-Path (Line Follower)</a></li>
+            <li><a href="#arenasSection">Aqua-Blast (Water Rocket)</a></li>
+            <li><a href="#arenasSection">Aero-Strike (Drone Arena)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>LOCATION & CONVENTION</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6; margin-bottom:0.8rem;">
+            Grand Tech Arena & Convention Grounds<br>
+            Sonarpur, Kolkata – 700150<br>
+            West Bengal, India
+          </p>
+          <p style="font-family:var(--font-tech); font-size:0.8rem; color:var(--secondary);">
+            Helpline: +91 98300 00000<br>
+            Email: delegate@techpulse2027.in
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2027 TECHPULSE. All rights reserved. Transformers & Cybertron inspired techno-fest design.
+        </div>
+        <div style="display:flex; gap:1.2rem;">
+          <a href="#hero" style="color:var(--text-dim); text-decoration:none;">Back to Top ↑</a>
+          <a href="#" id="btnExportCsv" style="color:var(--primary); text-decoration:none;">Export Delegate Registry (.csv)</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main Application Script -->
+  <script src="js/app.js"></script>
+</body>
+</html>

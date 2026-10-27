@@ -1,0 +1,6 @@
+node_modules/
+video_frames/
+.DS_Store
+*.log
+WhatsApp*
+

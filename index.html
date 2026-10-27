@@ -579,7 +579,7 @@
           </div>
 
           <!-- THE FORM -->
-          <form id="registrationForm" onsubmit="return false;">
+          <form id="registrationForm" novalidate onsubmit="return false;">
             
             <!-- STEP 1: PERSONAL & IDENTITY PROFILE -->
             <div class="form-step-container" id="formStep1">
@@ -1024,13 +1024,14 @@
 
                 <!-- Footer with Real QR Code & Pass ID -->
                 <div class="pass-footer-qr-row">
-                  <div class="pass-qr-box" id="passQrCode">
+                  <div class="pass-qr-box" id="passQrCode" title="Tap to test Gate Scan Verification" style="cursor: pointer;">
                     <!-- Dynamic QR Canvas inserted here -->
                   </div>
                   <div class="pass-id-meta">
                     <span>PASS ENCRYPTION KEY</span>
                     <strong id="passIdDisplay">TP27-AUTOBOT-8832</strong>
                     <span style="font-size:0.6rem; color:var(--text-dim); margin-top:2px;">5 POINT EDUCATION • KRANTI FOUNDATION</span>
+                    <span style="font-size:0.6rem; color:var(--primary); cursor:pointer; text-decoration:underline; display:block; margin-top:3px;" id="btnTestQrScan">🔍 Tap QR to Test Scan</span>
                   </div>
                 </div>
               </div>
@@ -1231,6 +1232,34 @@
         </button>
         <button type="button" class="btn-cyber-ghost modal-close-btn">
           Return to Portal
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       GATE ENTRY QR SCANNER VERIFICATION MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" id="gateScanModal">
+    <div class="cyber-modal-card" style="max-width: 520px; text-align:center; border: 2px solid var(--primary);">
+      <div style="font-size:3rem; margin-bottom:0.5rem;">🛡️</div>
+      <div class="pulse-badge" style="margin-bottom:0.8rem; display:inline-flex;">
+        <span class="pulse-dot"></span> LIVE SCANNER RESULT • ENTRY AUTHORIZED
+      </div>
+      <h3 class="modal-title" style="justify-content:center; margin-bottom:0.4rem; color:#fff;">
+        OFFICIAL DELEGATE PASS VERIFIED
+      </h3>
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.2rem;">
+        Authenticated via TechPulse 2027 Cybertron Matrix & 5 Point Education Protocol.
+      </p>
+
+      <div id="gateScanContentBox" style="background:rgba(12,17,28,0.85); border:1px solid var(--border-cyber); border-radius:var(--radius-sm); padding:1.2rem; text-align:left; margin-bottom:1.5rem; font-family:var(--font-tech); font-size:0.85rem; line-height:1.8;">
+        <!-- Filled dynamically -->
+      </div>
+
+      <div style="display:flex; justify-content:center; gap:0.8rem;">
+        <button type="button" class="btn-cyber-primary modal-close-btn" style="padding:0.6rem 1.6rem;">
+          ✓ Acknowledge & Return
         </button>
       </div>
     </div>

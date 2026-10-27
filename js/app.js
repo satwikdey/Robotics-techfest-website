@@ -252,35 +252,106 @@
   }
 
   // ==========================================================================
-  // QR CODE GENERATOR (Using qrcode.js)
+  // QR CODE GENERATOR & GATE VERIFICATION ENGINE
   // ==========================================================================
+  function getVerificationUrl() {
+    const name = document.getElementById('regFullName')?.value?.trim() || 'Cadet Delegate';
+    const profile = state.profile === 'school' ? 'SCHOOL PIONEER' : 'COLLEGE TECHNOCRAT';
+    const inst = (state.profile === 'school' ? document.getElementById('regSchoolName')?.value : document.getElementById('regCollegeName')?.value)?.trim() || 'Jadavpur University';
+    const roll = (state.profile === 'school' ? document.getElementById('regGrade')?.value : document.getElementById('regRollNumber')?.value)?.trim() || '';
+
+    // Real hosted link or current origin
+    const baseUrl = 'https://satwikdey.github.io/Robotics-techfest-website/';
+    return `${baseUrl}?verify=${encodeURIComponent(state.delegateId)}&name=${encodeURIComponent(name)}&inst=${encodeURIComponent(inst)}&role=${encodeURIComponent(profile)}&id=${encodeURIComponent(roll)}`;
+  }
+
   function updatePassQRCode() {
     const container = document.getElementById('passQrCode');
     if (!container) return;
 
-    const name = document.getElementById('regFullName')?.value || 'Cadet Delegate';
-    const profile = state.profile.toUpperCase();
-    const inst = (state.profile === 'school' ? document.getElementById('regSchoolName')?.value : document.getElementById('regCollegeName')?.value) || 'TechPulse Academy';
-
-    const qrPayload = JSON.stringify({
-      id: state.delegateId,
-      name: name,
-      profile: profile,
-      inst: inst,
-      valid: "VERIFIED_CYBERTRON_PASS_2027"
-    });
+    const qrUrl = getVerificationUrl();
 
     try {
       if (typeof qrcode !== 'undefined') {
         const qr = qrcode(0, 'M');
-        qr.addData(qrPayload);
+        qr.addData(qrUrl);
         qr.make();
-        container.innerHTML = qr.createImgTag(3, 4);
+        container.innerHTML = qr.createImgTag(3, 2);
       } else {
-        container.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrPayload)}" alt="QR Code">`;
+        container.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrUrl)}" alt="QR Code">`;
       }
     } catch (e) {
       container.innerHTML = `<div style="font-size:9px;color:#000;text-align:center;padding:4px;">VERIFIED<br><b>${state.delegateId}</b></div>`;
+    }
+  }
+
+  function showGateScanModal(delegateId, name, inst, role, roll) {
+    const modal = document.getElementById('gateScanModal');
+    const content = document.getElementById('gateScanContentBox');
+    
+    delegateId = delegateId || state.delegateId;
+    name = name || document.getElementById('regFullName')?.value?.trim() || 'Cadet Delegate';
+    role = role || (state.profile === 'school' ? 'SCHOOL PIONEER' : 'COLLEGE TECHNOCRAT');
+    inst = inst || (state.profile === 'school' ? document.getElementById('regSchoolName')?.value : document.getElementById('regCollegeName')?.value)?.trim() || 'Jadavpur University';
+    roll = roll || (state.profile === 'school' ? document.getElementById('regGrade')?.value : document.getElementById('regRollNumber')?.value)?.trim() || '2027-CADET-01';
+
+    const checkedEvents = Array.from(document.querySelectorAll('input[name="enlistedEvents"]:checked')).map(cb => cb.value);
+    const arenasText = checkedEvents.length > 0 ? checkedEvents.join(', ') : 'All Battle Zones & Delegate Concourse';
+
+    if (content) {
+      content.innerHTML = `
+        <div style="border-bottom:1px solid rgba(0,240,255,0.25); padding-bottom:0.6rem; margin-bottom:0.8rem;">
+          <span style="color:var(--text-dim); font-size:0.7rem; text-transform:uppercase;">AUTHENTICATED PASS IDENTIFIER:</span>
+          <div style="color:var(--secondary); font-family:var(--font-display); font-size:1.2rem; font-weight:800; letter-spacing:0.5px;">${delegateId}</div>
+        </div>
+        
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.9rem;">
+          <div>
+            <span style="color:var(--text-dim); font-size:0.68rem; text-transform:uppercase;">DELEGATE NAME:</span>
+            <strong style="color:#fff; font-size:0.95rem;">${name}</strong>
+          </div>
+          <div>
+            <span style="color:var(--text-dim); font-size:0.68rem; text-transform:uppercase;">PROFILE:</span>
+            <strong style="color:var(--primary); font-size:0.85rem;">${role}</strong>
+          </div>
+          <div>
+            <span style="color:var(--text-dim); font-size:0.68rem; text-transform:uppercase;">INSTITUTION:</span>
+            <strong style="color:#fff; font-size:0.85rem;">${inst}</strong>
+          </div>
+          <div>
+            <span style="color:var(--text-dim); font-size:0.68rem; text-transform:uppercase;">GATE STATUS:</span>
+            <strong style="color:#00ff88; font-size:0.85rem;">✓ ACCESS AUTHORIZED</strong>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,240,255,0.06); border:1px solid var(--border-cyber); border-radius:4px; padding:0.65rem; margin-bottom:0.6rem; font-size:0.78rem;">
+          <span style="color:var(--text-dim); font-size:0.68rem; text-transform:uppercase;">ARENA CLEARANCE:</span>
+          <div style="color:var(--primary); font-weight:600;">${arenasText}</div>
+        </div>
+
+        <div style="font-size:0.72rem; color:var(--text-muted); line-height:1.4;">
+          <strong style="color:#fff;">SCANNABLE VERIFICATION URL:</strong><br>
+          <a href="https://satwikdey.github.io/Robotics-techfest-website/?verify=${encodeURIComponent(delegateId)}&name=${encodeURIComponent(name)}" target="_blank" style="color:var(--primary); word-break:break-all;">
+            https://satwikdey.github.io/Robotics-techfest-website/?verify=${encodeURIComponent(delegateId)}
+          </a>
+        </div>
+      `;
+    }
+    modal?.classList.add('open');
+    SoundFX.beep();
+  }
+
+  function checkUrlForGateScan() {
+    const params = new URLSearchParams(window.location.search);
+    const verifyId = params.get('verify');
+    if (verifyId) {
+      const name = params.get('name') || 'Cadet Delegate';
+      const inst = params.get('inst') || 'Affiliated Institution';
+      const role = params.get('role') || 'DELEGATE';
+      const roll = params.get('id') || '';
+      setTimeout(() => {
+        showGateScanModal(verifyId, name, inst, role, roll);
+      }, 500);
     }
   }
 
@@ -392,7 +463,11 @@
     const currentContainer = document.getElementById(`formStep${state.currentStep}`);
     if (!currentContainer) return true;
 
-    const requiredInputs = currentContainer.querySelectorAll('[required]');
+    // Filter to only VISIBLE inputs in the current container (ignore hidden school/college fields)
+    const requiredInputs = Array.from(currentContainer.querySelectorAll('[required]')).filter(input => {
+      return input.offsetParent !== null;
+    });
+
     let isValid = true;
     let firstInvalid = null;
 
@@ -410,9 +485,61 @@
 
     if (!isValid && firstInvalid) {
       firstInvalid.focus();
-      alert('Please fill out the highlighted required cybertron telemetry fields.');
       return false;
     }
+    return true;
+  }
+
+  function highlightField(input) {
+    if (!input) return;
+    input.style.borderColor = 'var(--accent-red)';
+    input.style.boxShadow = '0 0 12px rgba(255,42,77,0.6)';
+    input.focus();
+    input.addEventListener('input', () => {
+      input.style.borderColor = '';
+      input.style.boxShadow = '';
+    }, { once: true });
+  }
+
+  // Thorough validation across all steps before final transmission
+  function validateAllSteps() {
+    // 1. Check Full Name
+    const fullName = document.getElementById('regFullName');
+    if (!fullName || !fullName.value.trim()) {
+      showStep(1);
+      highlightField(fullName);
+      alert('Please specify the Student Full Name in Section 1.');
+      return false;
+    }
+
+    // 2. Check Mobile
+    const phone = document.getElementById('regPhone');
+    if (!phone || !phone.value.trim()) {
+      showStep(1);
+      highlightField(phone);
+      alert('Please specify a Contact Mobile Number in Section 1.');
+      return false;
+    }
+
+    // 3. Check Institution based on selected profile
+    if (state.profile === 'school') {
+      const sch = document.getElementById('regSchoolName');
+      if (!sch || !sch.value.trim()) {
+        showStep(2);
+        highlightField(sch);
+        alert('Please specify your School Name in Section 2.');
+        return false;
+      }
+    } else {
+      const col = document.getElementById('regCollegeName');
+      if (!col || !col.value.trim()) {
+        showStep(2);
+        highlightField(col);
+        alert('Please specify your College / University Name in Section 2.');
+        return false;
+      }
+    }
+
     return true;
   }
 
@@ -745,13 +872,16 @@
   // DATA TRANSMISSION & GOOGLE APPS SCRIPT / EXCEL INTEGRATION
   // ==========================================================================
   async function submitRegistration(e) {
-    if (e) e.preventDefault();
-    if (!validateCurrentStep()) return;
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (!validateAllSteps()) return;
 
     const submitBtn = document.getElementById('btnSubmitRegistration');
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `TRANSMITTING TO CYBERTRON...`;
+      submitBtn.innerHTML = `⏳ TRANSMITTING TO CYBERTRON MATRIX...`;
     }
 
     // Collect all data
@@ -762,9 +892,9 @@
       timestamp: new Date().toISOString(),
       delegateId: state.delegateId,
       profile: state.profile === 'school' ? 'School Student' : 'College / University',
-      fullName: document.getElementById('regFullName')?.value || '',
-      email: document.getElementById('regEmail')?.value || '',
-      phone: document.getElementById('regPhone')?.value || '',
+      fullName: document.getElementById('regFullName')?.value?.trim() || '',
+      email: document.getElementById('regEmail')?.value?.trim() || '',
+      phone: document.getElementById('regPhone')?.value?.trim() || '',
       gender: document.getElementById('regGender')?.value || '',
       dob: document.getElementById('regDob')?.value || '',
       // School Fields
@@ -777,11 +907,11 @@
       yearSem: state.profile === 'college' ? document.getElementById('regYearSem')?.value || '' : '',
       rollNumber: state.profile === 'college' ? document.getElementById('regRollNumber')?.value || '' : '',
       // Academic Institution
-      institutionName: (state.profile === 'school' ? document.getElementById('regSchoolName')?.value : document.getElementById('regCollegeName')?.value) || '',
-      city: document.getElementById('regCity')?.value || 'Kolkata',
+      institutionName: (state.profile === 'school' ? document.getElementById('regSchoolName')?.value : document.getElementById('regCollegeName')?.value)?.trim() || '',
+      city: document.getElementById('regCity')?.value?.trim() || 'Kolkata',
       // Events & Perks
-      events: checkedEvents.join(', '),
-      zones: checkedZones.join(', '),
+      events: checkedEvents.length > 0 ? checkedEvents.join(', ') : 'Delegate Pass Only',
+      zones: checkedZones.length > 0 ? checkedZones.join(', ') : 'All Zones Access',
       foodPass: document.getElementById('regFoodPass')?.value || 'Yes',
       emergencyContact: document.getElementById('regEmergencyContact')?.value || ''
     };
@@ -798,7 +928,7 @@
         await fetch(state.appScriptUrl, {
           method: 'POST',
           mode: 'no-cors', // standard for Apps Script Web Apps to prevent CORS blockage
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(record)
         });
         appsScriptSuccess = true;
@@ -970,13 +1100,37 @@
       prevBtn?.addEventListener('click', () => showStep(i - 1));
     }
 
-    // 7. Real-time form listeners
+    // 7. Real-time form listeners & direct submit button listener
     const form = document.getElementById('registrationForm');
     if (form) {
       form.addEventListener('input', syncPass);
       form.addEventListener('change', syncPass);
-      form.addEventListener('submit', submitRegistration);
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        submitRegistration(e);
+      });
     }
+
+    const submitBtn = document.getElementById('btnSubmitRegistration');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        submitRegistration(e);
+      });
+    }
+
+    // QR Code Gate Verification Click Handlers (For In-browser Testing)
+    document.getElementById('passQrCode')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showGateScanModal();
+    });
+    document.getElementById('btnTestQrScan')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showGateScanModal();
+    });
+
+    // Check if the page was opened with a scannable QR verification link
+    checkUrlForGateScan();
 
     // 8. Event selection quick-add from Arenas Cards
     document.querySelectorAll('.arena-quick-enlist-btn').forEach(btn => {
